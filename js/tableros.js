@@ -25,10 +25,37 @@ function renderizarListaTableros() {
 
   tableros.forEach((tablero) => {
     const item = document.createElement("li");
-    item.textContent = tablero.nombre;
     item.dataset.id = tablero.id;
+
+    const nombreSpan = document.createElement("span");
+    nombreSpan.textContent = tablero.nombre;
+    item.appendChild(nombreSpan);
+
+    const botonRenombrar = document.createElement("button");
+    botonRenombrar.textContent = "Renombrar";
+    botonRenombrar.addEventListener("click", () => {
+      const nuevoNombre = prompt("Nuevo nombre del tablero:", tablero.nombre);
+      if (nuevoNombre !== null) {
+        renombrarTablero(tablero.id, nuevoNombre);
+      }
+    });
+    item.appendChild(botonRenombrar);
+
     lista.appendChild(item);
   });
+}
+
+function renombrarTablero(id, nuevoNombre) {
+  const nombreLimpio = nuevoNombre.trim();
+  if (!nombreLimpio) return;
+
+  const tableros = obtenerTableros();
+  const tablero = tableros.find((t) => t.id === id);
+  if (!tablero) return;
+
+  tablero.nombre = nombreLimpio;
+  guardarTableros(tableros);
+  renderizarListaTableros();
 }
 
 function crearTablero(nombre) {
