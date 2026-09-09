@@ -41,8 +41,24 @@ function renderizarListaTableros() {
     });
     item.appendChild(botonRenombrar);
 
+    const botonEliminar = document.createElement("button");
+    botonEliminar.textContent = "Eliminar";
+    botonEliminar.addEventListener("click", () => {
+      const confirmado = confirm(`¿Eliminar el tablero "${tablero.nombre}"?`);
+      if (confirmado) {
+        eliminarTablero(tablero.id);
+      }
+    });
+    item.appendChild(botonEliminar);
+
     lista.appendChild(item);
   });
+}
+
+function eliminarTablero(id) {
+  const tableros = obtenerTableros().filter((t) => t.id !== id);
+  guardarTableros(tableros);
+  renderizarListaTableros();
 }
 
 function renombrarTablero(id, nuevoNombre) {
