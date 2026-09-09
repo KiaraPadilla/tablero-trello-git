@@ -12,7 +12,7 @@ backend), con persistencia en `localStorage`.
 
 ## Equipo
 
-- (nombre integrante 1)
+- Kiara Padilla
 - (nombre integrante 2)
 - (nombre integrante 3)
 
