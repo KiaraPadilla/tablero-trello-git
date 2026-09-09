@@ -3,6 +3,8 @@
 const CLAVE_STORAGE_TABLEROS = "tableros";
 const COLUMNAS_FIJAS = ["Por hacer", "En progreso", "Hecho"];
 
+let idTableroSeleccionado = null;
+
 function generarIdTablero() {
   return "tablero-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
 }
@@ -27,8 +29,14 @@ function renderizarListaTableros() {
     const item = document.createElement("li");
     item.dataset.id = tablero.id;
 
+    if (tablero.id === idTableroSeleccionado) {
+      item.classList.add("tablero-activo");
+    }
+
     const nombreSpan = document.createElement("span");
     nombreSpan.textContent = tablero.nombre;
+    nombreSpan.classList.add("tablero-nombre");
+    nombreSpan.addEventListener("click", () => seleccionarTablero(tablero.id));
     item.appendChild(nombreSpan);
 
     const botonRenombrar = document.createElement("button");
@@ -58,7 +66,46 @@ function renderizarListaTableros() {
 function eliminarTablero(id) {
   const tableros = obtenerTableros().filter((t) => t.id !== id);
   guardarTableros(tableros);
+
+  if (idTableroSeleccionado === id) {
+    idTableroSeleccionado = null;
+  }
+
   renderizarListaTableros();
+  renderizarColumnasTablero();
+}
+
+function seleccionarTablero(id) {
+  idTableroSeleccionado = id;
+  renderizarListaTableros();
+  renderizarColumnasTablero();
+}
+
+function renderizarColumnasTablero() {
+  const contenedor = document.getElementById("columnas-tablero");
+  const titulo = document.getElementById("titulo-tablero-activo");
+  if (!contenedor || !titulo) return;
+
+  const tablero = obtenerTableros().find((t) => t.id === idTableroSeleccionado);
+  contenedor.innerHTML = "";
+
+  if (!tablero) {
+    titulo.textContent = "";
+    return;
+  }
+
+  titulo.textContent = tablero.nombre;
+
+  tablero.columnas.forEach((columna) => {
+    const columnaDiv = document.createElement("div");
+    columnaDiv.classList.add("columna");
+
+    const encabezado = document.createElement("h3");
+    encabezado.textContent = columna.nombre;
+    columnaDiv.appendChild(encabezado);
+
+    contenedor.appendChild(columnaDiv);
+  });
 }
 
 function renombrarTablero(id, nuevoNombre) {
@@ -72,6 +119,7 @@ function renombrarTablero(id, nuevoNombre) {
   tablero.nombre = nombreLimpio;
   guardarTableros(tableros);
   renderizarListaTableros();
+  renderizarColumnasTablero();
 }
 
 function crearTablero(nombre) {
@@ -90,7 +138,9 @@ function crearTablero(nombre) {
 
   tableros.push(nuevoTablero);
   guardarTableros(tableros);
+  idTableroSeleccionado = nuevoTablero.id;
   renderizarListaTableros();
+  renderizarColumnasTablero();
 }
 
 function inicializarControlesCrearTablero() {
@@ -106,5 +156,6 @@ function inicializarControlesCrearTablero() {
 
 document.addEventListener("DOMContentLoaded", () => {
   renderizarListaTableros();
+  renderizarColumnasTablero();
   inicializarControlesCrearTablero();
 });
