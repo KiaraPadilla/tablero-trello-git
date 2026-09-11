@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tablero de Tareas</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Tablero de Tareas</h1>
+    <div id="usuario-actual"></div>
+  </header>
+
+  <main>
+    <section id="seccion-tableros">
+      <h2>Tableros</h2>
+      <div id="controles-tableros">
+        <input type="text" id="input-nombre-tablero" placeholder="Nombre del nuevo tablero" />
+        <button id="btn-crear-tablero">Crear tablero</button>
+      </div>
+      <ul id="lista-tableros"></ul>
+    </section>
+
+    <section id="seccion-tablero-activo">
+      <div id="columnas-tablero"></div>
+    </section>
+  </main>
+
+  <div id="notificaciones"></div>
+
+  <script src="js/usuarios.js"></script>
+  <script src="js/tarjetas.js"></script>
+  <script src="js/tableros.js"></script>
+</body>
+</html>
