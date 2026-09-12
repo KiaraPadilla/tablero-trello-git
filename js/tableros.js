@@ -106,6 +106,8 @@ function renderizarColumnasTablero() {
 
     contenedor.appendChild(columnaDiv);
   });
+
+  renderizarTarjetas();
 }
 
 function renombrarTablero(id, nuevoNombre) {
