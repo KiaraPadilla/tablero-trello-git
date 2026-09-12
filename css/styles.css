@@ -187,3 +187,14 @@ button:active {
   margin: 0 0 0.45rem;
   font-size: 0.9rem;
 }
+
+.tarjeta-controles {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.tarjeta-controles button {
+  font-size: 0.72rem;
+  padding: 0.25rem 0.5rem;
+}

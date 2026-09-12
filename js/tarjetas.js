@@ -32,6 +32,25 @@ function crearTarjeta(idTablero, nombreColumna, texto) {
   renderizarTarjetas();
 }
 
+function editarTarjeta(id, nuevoTexto) {
+  const textoLimpio = nuevoTexto.trim();
+  if (!textoLimpio) return;
+
+  const tarjetas = obtenerTarjetas();
+  const tarjeta = tarjetas.find((t) => t.id === id);
+  if (!tarjeta) return;
+
+  tarjeta.texto = textoLimpio;
+  guardarTarjetas(tarjetas);
+  renderizarTarjetas();
+}
+
+function eliminarTarjeta(id) {
+  const tarjetas = obtenerTarjetas().filter((t) => t.id !== id);
+  guardarTarjetas(tarjetas);
+  renderizarTarjetas();
+}
+
 function renderizarTarjetas() {
   const contenedor = document.getElementById("columnas-tablero");
   if (!contenedor) return;
@@ -68,6 +87,31 @@ function renderizarTarjetas() {
       textoP.classList.add("tarjeta-texto");
       textoP.textContent = tarjeta.texto;
       tarjetaDiv.appendChild(textoP);
+
+      const controles = document.createElement("div");
+      controles.classList.add("tarjeta-controles");
+
+      const botonEditar = document.createElement("button");
+      botonEditar.textContent = "Editar";
+      botonEditar.addEventListener("click", () => {
+        const nuevoTexto = prompt("Editar tarjeta:", tarjeta.texto);
+        if (nuevoTexto !== null) {
+          editarTarjeta(tarjeta.id, nuevoTexto);
+        }
+      });
+      controles.appendChild(botonEditar);
+
+      const botonEliminar = document.createElement("button");
+      botonEliminar.textContent = "Eliminar";
+      botonEliminar.addEventListener("click", () => {
+        const confirmado = confirm(`¿Eliminar la tarjeta "${tarjeta.texto}"?`);
+        if (confirmado) {
+          eliminarTarjeta(tarjeta.id);
+        }
+      });
+      controles.appendChild(botonEliminar);
+
+      tarjetaDiv.appendChild(controles);
 
       contenedorTarjetas.appendChild(tarjetaDiv);
     });
