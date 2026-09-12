@@ -51,6 +51,18 @@ function eliminarTarjeta(id) {
   renderizarTarjetas();
 }
 
+function moverTarjeta(id, nuevaColumna) {
+  if (!COLUMNAS_FIJAS.includes(nuevaColumna)) return;
+
+  const tarjetas = obtenerTarjetas();
+  const tarjeta = tarjetas.find((t) => t.id === id);
+  if (!tarjeta) return;
+
+  tarjeta.nombreColumna = nuevaColumna;
+  guardarTarjetas(tarjetas);
+  renderizarTarjetas();
+}
+
 function renderizarTarjetas() {
   const contenedor = document.getElementById("columnas-tablero");
   if (!contenedor) return;
@@ -110,6 +122,25 @@ function renderizarTarjetas() {
         }
       });
       controles.appendChild(botonEliminar);
+
+      const indiceColumna = COLUMNAS_FIJAS.indexOf(nombreColumna);
+      if (indiceColumna > 0) {
+        const botonAnterior = document.createElement("button");
+        botonAnterior.textContent = "Columna anterior";
+        botonAnterior.addEventListener("click", () => {
+          moverTarjeta(tarjeta.id, COLUMNAS_FIJAS[indiceColumna - 1]);
+        });
+        controles.appendChild(botonAnterior);
+      }
+
+      if (indiceColumna >= 0 && indiceColumna < COLUMNAS_FIJAS.length - 1) {
+        const botonSiguiente = document.createElement("button");
+        botonSiguiente.textContent = "Columna siguiente";
+        botonSiguiente.addEventListener("click", () => {
+          moverTarjeta(tarjeta.id, COLUMNAS_FIJAS[indiceColumna + 1]);
+        });
+        controles.appendChild(botonSiguiente);
+      }
 
       tarjetaDiv.appendChild(controles);
 
