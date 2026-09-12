@@ -168,3 +168,33 @@ button:active {
   font-size: 0.95rem;
   color: #44546f;
 }
+
+.tarjetas-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.tarjeta {
+  background-color: white;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 1px 2px rgba(9, 30, 66, 0.15);
+}
+
+.tarjeta-texto {
+  margin: 0 0 0.45rem;
+  font-size: 0.9rem;
+}
+
+.tarjeta-controles {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.tarjeta-controles button {
+  font-size: 0.72rem;
+  padding: 0.25rem 0.5rem;
+}

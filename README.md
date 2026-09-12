@@ -13,7 +13,7 @@ backend), con persistencia en `localStorage`.
 ## Equipo
 
 - Kiara Padilla
-- (nombre integrante 2)
+- Adrian Manuel Salcedo Vargas
 - (nombre integrante 3)
 
 ## Flujo de trabajo
