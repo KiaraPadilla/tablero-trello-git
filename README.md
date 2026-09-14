@@ -14,7 +14,7 @@ backend), con persistencia en `localStorage`.
 
 - Kiara Padilla
 - Adrian Manuel Salcedo Vargas
-- (nombre integrante 3)
+- Anelhi Zharick Marcos Arias
 
 ## Flujo de trabajo
 
