@@ -13,8 +13,9 @@ backend), con persistencia en `localStorage`.
 ## Equipo
 
 - Kiara Padilla
-- (nombre integrante 2)
-- (nombre integrante 3)
+- Adrian Manuel Salcedo Vargas
+- Anelhi Zharick Marcos Arias
+- Ghelytza Belu Arrieta Berrocal
 
 ## Flujo de trabajo
 
