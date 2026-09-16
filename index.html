@@ -6,7 +6,7 @@
   <title>Tablero de Tareas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/tableros.css" />
   <link rel="stylesheet" href="css/usuarios.css">
@@ -18,7 +18,19 @@
   </header>
 
   <main>
-    <section id="seccion-tableros">
+    <section id="landing-tableros">
+      <h2>Organiza tu trabajo con tableros</h2>
+      <p>
+        Tablero de Tareas es un tablero estilo Trello simplificado: crea
+        tableros para tus proyectos, organiza tareas en columnas ("Por
+        hacer", "En progreso", "Hecho") y muévelas a medida que avanzas.
+      </p>
+      <p class="landing-aviso">
+        Inicia sesión arriba con tu nombre para empezar a crear tus tableros.
+      </p>
+    </section>
+
+    <section id="seccion-tableros" hidden>
       <h2>Tableros</h2>
       <div id="controles-tableros">
         <input type="text" id="input-nombre-tablero" placeholder="Nombre del nuevo tablero" />
@@ -27,7 +39,7 @@
       <ul id="lista-tableros"></ul>
     </section>
 
-    <section id="seccion-tablero-activo">
+    <section id="seccion-tablero-activo" hidden>
       <h2 id="titulo-tablero-activo"></h2>
       <div id="columnas-tablero"></div>
     </section>
