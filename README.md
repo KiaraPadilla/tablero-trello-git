@@ -12,9 +12,10 @@ backend), con persistencia en `localStorage`.
 
 ## Equipo
 
-- Arrieta Berrocal Ghelytza Belu
-- (nombre integrante 2)
-- (nombre integrante 3)
+- Kiara Padilla
+- Adrian Manuel Salcedo Vargas
+- Anelhi Zharick Marcos Arias
+- Ghelytza Belu Arrieta Berrocal
 
 ## Flujo de trabajo
 

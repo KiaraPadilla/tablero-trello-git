@@ -1,0 +1,28 @@
+#usuario-actual {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.usuario-nombre {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.input-usuario {
+  padding: 0.4rem 0.6rem;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  color: #172b4d;
+  font-size: 0.9rem;
+}
+
+.btn-usuario {
+  background-color: #ebecf0;
+  color: #172b4d;
+}
+
+.btn-usuario:hover {
+  background-color: #dfe1e6;
+}
