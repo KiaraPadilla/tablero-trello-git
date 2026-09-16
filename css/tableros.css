@@ -1,0 +1,117 @@
+#seccion-tableros {
+  margin-bottom: 2rem;
+}
+
+#seccion-tableros h2,
+#seccion-tablero-activo h2 {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #44546f;
+  margin-bottom: 0.75rem;
+}
+
+#controles-tableros {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#input-nombre-tablero {
+  flex: 1;
+  max-width: 320px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #dfe1e6;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+#input-nombre-tablero:focus {
+  outline: none;
+  border-color: #0079bf;
+  box-shadow: 0 0 0 2px rgba(0, 121, 191, 0.2);
+}
+
+#btn-crear-tablero {
+  background-color: #0079bf;
+  color: white;
+}
+
+#btn-crear-tablero:hover {
+  background-color: #026aa7;
+}
+
+#lista-tableros {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+#lista-tableros li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: white;
+  border: 1px solid #dfe1e6;
+  border-radius: 6px;
+  padding: 0.5rem 0.6rem;
+  box-shadow: 0 1px 2px rgba(9, 30, 66, 0.08);
+}
+
+#lista-tableros li.tablero-activo {
+  border-color: #0079bf;
+  box-shadow: 0 0 0 2px rgba(0, 121, 191, 0.25);
+}
+
+.tablero-nombre {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.15rem 0.3rem;
+}
+
+.tablero-nombre:hover {
+  color: #0079bf;
+}
+
+#lista-tableros button {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.6rem;
+}
+
+#seccion-tablero-activo {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.25rem;
+  min-height: 120px;
+  box-shadow: 0 1px 3px rgba(9, 30, 66, 0.1);
+}
+
+#titulo-tablero-activo {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+  color: #172b4d;
+}
+
+#columnas-tablero {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+}
+
+.columna {
+  background-color: #ebecf0;
+  border-radius: 6px;
+  padding: 0.75rem;
+  width: 250px;
+  min-width: 250px;
+  min-height: 200px;
+}
+
+.columna h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  color: #44546f;
+}
