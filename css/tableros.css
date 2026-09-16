@@ -11,7 +11,8 @@
 
 #landing-tableros h2 {
   margin: 0 0 1rem;
-  font-size: 1.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--color-text);
@@ -72,15 +73,15 @@
 }
 
 #btn-crear-tablero {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
   color: var(--color-text-on-primary);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 #btn-crear-tablero:hover {
-  background-color: var(--color-primary-dark);
-  border-color: var(--color-primary-dark);
+  background-color: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
 }
 
 #lista-tableros {
@@ -141,7 +142,8 @@
 
 #titulo-tablero-activo {
   margin: 0 0 1.1rem;
-  font-size: 1.2rem;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--color-text);
