@@ -11,7 +11,14 @@ function generarIdTablero() {
 
 function obtenerTableros() {
   const datos = localStorage.getItem(CLAVE_STORAGE_TABLEROS);
-  return datos ? JSON.parse(datos) : [];
+  if (!datos) return [];
+
+  try {
+    return JSON.parse(datos);
+  } catch (error) {
+    console.error("Datos de tableros corruptos en localStorage, se reinicia la lista.", error);
+    return [];
+  }
 }
 
 function guardarTableros(tableros) {
