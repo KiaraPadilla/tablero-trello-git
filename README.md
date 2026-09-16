@@ -12,7 +12,7 @@ backend), con persistencia en `localStorage`.
 
 ## Equipo
 
-- (nombre integrante 1)
+- Arrieta Berrocal Ghelytza Belu
 - (nombre integrante 2)
 - (nombre integrante 3)
 
