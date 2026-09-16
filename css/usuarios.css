@@ -2,25 +2,53 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.avatar-usuario {
+  width: 32px;
+  height: 32px;
+  background-color: #0079bf;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1rem;
 }
 
 .usuario-nombre {
   font-weight: 500;
   font-size: 0.95rem;
+  color: white;
 }
 
 .input-usuario {
-  padding: 0.4rem 0.6rem;
-  border: none;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid transparent;
   border-radius: 4px;
   outline: none;
   color: #172b4d;
   font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.input-usuario:focus {
+  border-color: #0079bf;
+  box-shadow: 0 0 0 3px rgba(0, 121, 191, 0.3);
 }
 
 .btn-usuario {
   background-color: #ebecf0;
   color: #172b4d;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 0.9rem;
+  transition: background-color 0.15s ease;
 }
 
 .btn-usuario:hover {
