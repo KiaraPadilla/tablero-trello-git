@@ -48,3 +48,61 @@
 .columna:nth-child(3) .tarjeta {
   border-left: 4px solid #36b37e;
 }
+
+/* Categorias de tarjetas */
+.tarjeta-select-categoria {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #8a9bb0;
+  border: none;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  margin-bottom: 0.45rem;
+  cursor: pointer;
+}
+
+.cat-trabajo {
+  background-color: #7c3aed;
+}
+
+.cat-estudio {
+  background-color: #fb923c;
+}
+
+.cat-personal {
+  background-color: #2f9e44;
+}
+
+/* Filtro por categoria */
+.filtro-categorias {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.filtro-categorias select {
+  font-family: var(--font-sans);
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+/* Controles para crear una tarjeta nueva */
+.nueva-tarjeta {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.nueva-tarjeta select {
+  flex: 1;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  padding: 0.3rem 0.4rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
