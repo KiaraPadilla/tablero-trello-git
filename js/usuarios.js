@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!usuarioGuardado) {
             // 1. Mostrar el mensaje de bienvenida y ocultar los tableros
-            document.getElementById('landing-tableros').hidden = false;
+            document.getElementById('landing-tableros').classList.remove('oculto');
             document.getElementById('seccion-tableros').hidden = true;
 
             // 2. Poner el botón "Iniciar Sesión" en la barra morada
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             
             // 1. Ocultar el mensaje y mostrar los tableros de trabajo
-            document.getElementById('landing-tableros').hidden = true;
+            document.getElementById('landing-tableros').classList.add('oculto');
             document.getElementById('seccion-tableros').hidden = false;
 
             // 2. Poner el avatar y el botón "Cerrar Sesión" en la barra morada
