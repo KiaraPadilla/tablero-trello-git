@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesión - Tablero de Tareas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+
+  <!-- Contenedor Principal Centrado -->
+  <main class="contenedor-auth">
+    
+    <!-- TARJETA DE LOGIN -->
+    <div id="vista-login" class="tarjeta-auth">
+      <h2>Bienvenido al Sistema</h2>
+      <p>Ingresa tus credenciales para acceder</p>
+      
+      <div class="grupo-input">
+        <label>Correo electrónico</label>
+        <input type="email" id="login-correo" placeholder="ejemplo@correo.com" />
+      </div>
+      <div class="grupo-input">
+        <label>Contraseña</label>
+        <input type="password" id="login-password" placeholder="Tu contraseña" />
+      </div>
+      
+      <button id="btn-ingresar" class="btn-principal">Ingresar al Tablero</button>
+      
+      <div class="enlaces-auth">
+        <p>¿No tienes cuenta? <a href="#" id="link-ir-registro">Regístrate aquí</a></p>
+      </div>
+    </div>
+
+    <!-- TARJETA DE REGISTRO (Oculta por defecto) -->
+    <div id="vista-registro" class="tarjeta-auth oculto">
+      <h2>Crear Cuenta</h2>
+      <p>Regístrate para usar la plataforma</p>
+      
+      <div class="grupo-input">
+        <label>Tu Nombre</label>
+        <input type="text" id="reg-nombre" placeholder="Ej: Zharick" />
+      </div>
+      <div class="grupo-input">
+        <label>Correo electrónico</label>
+        <input type="email" id="reg-correo" placeholder="ejemplo@correo.com" />
+      </div>
+      <div class="grupo-input">
+        <label>Contraseña</label>
+        <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres" />
+      </div>
+      
+      <button id="btn-registrar" class="btn-principal">Registrarse</button>
+      
+      <div class="enlaces-auth">
+        <p>¿Ya tienes cuenta? <a href="#" id="link-ir-login">Inicia sesión</a></p>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

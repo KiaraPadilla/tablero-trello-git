@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #201533; /* Fondo oscuro morado */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.tarjeta-auth {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.tarjeta-auth h2 { color: #172b4d; margin-top: 0; }
+.tarjeta-auth p { color: #5e6c84; font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+.grupo-input { text-align: left; margin-bottom: 1rem; }
+.grupo-input label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; color: #172b4d;}
+.grupo-input input { 
+  width: 100%; box-sizing: border-box; padding: 0.7rem; 
+  border: 2px solid #dfe1e6; border-radius: 4px; font-size: 0.95rem;
+}
+.grupo-input input:focus { border-color: #0079bf; outline: none; }
+
+.btn-principal {
+  width: 100%; background-color: #0079bf; color: white;
+  padding: 0.8rem; border: none; border-radius: 4px;
+  font-weight: bold; font-size: 1rem; cursor: pointer;
+  margin-top: 1rem;
+}
+.btn-principal:hover { background-color: #026aa7; }
+
+.enlaces-auth { margin-top: 1.5rem; font-size: 0.85rem; }
+.enlaces-auth a { color: #0079bf; font-weight: bold; text-decoration: none; }
+
+.oculto { display: none !important; }

@@ -1,53 +1,58 @@
-const CLAVE_STORAGE_USUARIOS = "usuarios";
+const CLAVE_STORAGE = "usuarios";
+const contenedorUsuario = document.getElementById('usuario-actual');
 
 document.addEventListener('DOMContentLoaded', () => {
-    const contenedorUsuario = document.getElementById('usuario-actual');
-    const usuarioGuardado = localStorage.getItem(CLAVE_STORAGE_USUARIOS);
 
-    function renderizarUI(usuario) {
-    if (usuario) {
-        const inicial = usuario.charAt(0).toUpperCase();
-        contenedorUsuario.innerHTML = `
-            <div class="avatar-usuario">${inicial}</div>
-            <span class="usuario-nombre">Hola, ${usuario}</span>
-            <button id="btn-logout" class="btn-usuario">Cerrar Sesión</button>
-        `;
-        document.getElementById('btn-logout').addEventListener('click', cerrarSesion);
-    } else {
-        contenedorUsuario.innerHTML = `
-            <input type="text" id="input-usuario" class="input-usuario" placeholder="Tu nombre...">
-            <button id="btn-login" class="btn-usuario">Entrar</button>
-        `;
-        document.getElementById('btn-login').addEventListener('click', iniciarSesion);
-    }
-}
+    // Función principal que decide qué mostrar en la pantalla
+    function renderizarDashboard() {
+        const usuarioGuardado = localStorage.getItem(CLAVE_STORAGE);
 
-    function iniciarSesion() {
-        const nombreInput = document.getElementById('input-usuario').value.trim();
-        
-        if (nombreInput !== "") {
-            localStorage.setItem(CLAVE_STORAGE_USUARIOS, nombreInput);
-            renderizarUI(nombreInput);
+        if (!usuarioGuardado) {
+            // 1. Mostrar el mensaje de bienvenida y ocultar los tableros
+            document.getElementById('landing-tableros').hidden = false;
+            document.getElementById('seccion-tableros').hidden = true;
+
+            // 2. Poner el botón "Iniciar Sesión" en la barra morada
+            contenedorUsuario.innerHTML = `
+                <button id="btn-ir-login" class="btn-usuario">Iniciar Sesión</button>
+            `;
             
-            // Avisar al módulo de notificaciones
-            document.dispatchEvent(new CustomEvent("notificar", { 
-                detail: { mensaje: `Sesión iniciada: ${nombreInput}` } 
-            }));
+            // 3. Darle la orden de viajar al login al hacer clic
+            document.getElementById('btn-ir-login').addEventListener('click', () => {
+                window.location.href = 'login.html';
+            });
+
         } else {
-            alert("Por favor, ingresa tu nombre.");
+            
+            // 1. Ocultar el mensaje y mostrar los tableros de trabajo
+            document.getElementById('landing-tableros').hidden = true;
+            document.getElementById('seccion-tableros').hidden = false;
+
+            // 2. Poner el avatar y el botón "Cerrar Sesión" en la barra morada
+            const inicial = usuarioGuardado.charAt(0).toUpperCase();
+            contenedorUsuario.innerHTML = `
+                <div class="avatar-usuario">${inicial}</div>
+                <span class="usuario-nombre">Hola, ${usuarioGuardado}</span>
+                <button id="btn-logout" class="btn-usuario">Cerrar Sesión</button>
+            `;
+
+            // 3. Lógica para Cerrar Sesión
+            document.getElementById('btn-logout').addEventListener('click', () => {
+                // Borramos los datos
+                localStorage.removeItem(CLAVE_STORAGE);
+                localStorage.removeItem("correo_sesion_activa"); 
+                
+                // Avisamos al sistema
+                document.dispatchEvent(new CustomEvent("notificar", { 
+                    detail: { mensaje: `Sesión cerrada` } 
+                }));
+
+                // Volvemos a dibujar la pantalla como Visitante (sin salir de index.html)
+                renderizarDashboard();
+            });
         }
     }
 
-    function cerrarSesion() {
-        localStorage.removeItem(CLAVE_STORAGE_USUARIOS);
-        renderizarUI(null);
-        
-        // Avisar al módulo de notificaciones
-        document.dispatchEvent(new CustomEvent("notificar", { 
-            detail: { mensaje: `Sesión cerrada` } 
-        }));
-    }
-
-    // Dibujar la interfaz inicial
-    renderizarUI(usuarioGuardado);
+    // Ejecutamos la revisión apenas carga la página
+    renderizarDashboard();
 });
