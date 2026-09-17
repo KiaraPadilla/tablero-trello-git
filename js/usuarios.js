@@ -5,22 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const usuarioGuardado = localStorage.getItem(CLAVE_STORAGE_USUARIOS);
 
     function renderizarUI(usuario) {
-        if (usuario) {
-            // Diseño cuando hay sesión iniciada
-            contenedorUsuario.innerHTML = `
-                <span class="usuario-nombre">👤 Hola, ${usuario}</span>
-                <button id="btn-logout" class="btn-usuario">Cerrar Sesión</button>
-            `;
-            document.getElementById('btn-logout').addEventListener('click', cerrarSesion);
-        } else {
-            // Diseño del formulario de Login
-            contenedorUsuario.innerHTML = `
-                <input type="text" id="input-usuario" class="input-usuario" placeholder="Tu nombre...">
-                <button id="btn-login" class="btn-usuario">Entrar</button>
-            `;
-            document.getElementById('btn-login').addEventListener('click', iniciarSesion);
-        }
+    if (usuario) {
+        const inicial = usuario.charAt(0).toUpperCase();
+        contenedorUsuario.innerHTML = `
+            <div class="avatar-usuario">${inicial}</div>
+            <span class="usuario-nombre">Hola, ${usuario}</span>
+            <button id="btn-logout" class="btn-usuario">Cerrar Sesión</button>
+        `;
+        document.getElementById('btn-logout').addEventListener('click', cerrarSesion);
+    } else {
+        contenedorUsuario.innerHTML = `
+            <input type="text" id="input-usuario" class="input-usuario" placeholder="Tu nombre...">
+            <button id="btn-login" class="btn-usuario">Entrar</button>
+        `;
+        document.getElementById('btn-login').addEventListener('click', iniciarSesion);
     }
+}
 
     function iniciarSesion() {
         const nombreInput = document.getElementById('input-usuario').value.trim();
