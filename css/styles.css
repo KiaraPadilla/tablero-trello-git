@@ -31,6 +31,11 @@
   box-sizing: border-box;
 }
 
+/* Oculta un elemento por completo (anula el display:flex del hero) */
+.oculto {
+  display: none !important;
+}
+
 body {
   margin: 0;
   font-family: var(--font-sans);

@@ -19,9 +19,15 @@ function actualizarVisibilidadPorSesion() {
   if (!landing || !seccionTableros || !seccionActivo) return;
 
   const sesionActiva = haySesionActiva();
-  landing.hidden = sesionActiva;
+  landing.classList.toggle("oculto", sesionActiva);
   seccionTableros.hidden = !sesionActiva;
   seccionActivo.hidden = !sesionActiva;
+}
+
+// El hero solo es pantalla de bienvenida: se oculta al entrar a la vista de tableros.
+function ocultarVistaInicial() {
+  const landing = document.getElementById("landing-tableros");
+  if (landing) landing.classList.add("oculto");
 }
 
 function generarIdTablero() {
@@ -103,6 +109,7 @@ function eliminarTablero(id) {
 
 function seleccionarTablero(id) {
   idTableroSeleccionado = id;
+  ocultarVistaInicial();
   renderizarListaTableros();
   renderizarColumnasTablero();
 }
@@ -167,6 +174,7 @@ function crearTablero(nombre) {
   tableros.push(nuevoTablero);
   guardarTableros(tableros);
   idTableroSeleccionado = nuevoTablero.id;
+  ocultarVistaInicial();
   renderizarListaTableros();
   renderizarColumnasTablero();
 }
