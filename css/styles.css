@@ -88,4 +88,84 @@ button:active {
   transform: scale(0.97);
 }
 
+/*SECCIÓN HERO */
+.hero-seccion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #6554C0 0%, #3F2B96 100%);
+  color: white;
+  border-radius: 12px;
+  margin: 2rem;
+  overflow: hidden;
+}
 
+.hero-contenido {
+  flex: 1;
+  max-width: 50%;
+}
+
+.hero-titulo {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+}
+
+.hero-titulo span {
+  color: #FFC400;
+}
+
+.hero-subtitulo {
+  color: #ffffff !important; 
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/*ANIMACIÓN DE TARJETAS FLOTANTES */
+.hero-grafico {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.tarjeta-flotante {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 250px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.2);
+  animation: flotar 6s ease-in-out infinite;
+}
+
+.tarjeta-2 { animation-delay: -2s; transform: translateX(-40px); }
+.tarjeta-3 { animation-delay: -4s; transform: translateX(40px); }
+
+.linea-corta {
+  background: rgba(255, 255, 255, 0.8);
+  height: 8px;
+  width: 40%;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.linea-larga {
+  background: rgba(255, 255, 255, 0.4);
+  height: 8px;
+  width: 80%;
+  border-radius: 4px;
+}
+
+@keyframes flotar {
+  0% { transform: translateY(0px) translateX(0); }
+  50% { transform: translateY(-15px) translateX(0); }
+  100% { transform: translateY(0px) translateX(0); }
+}
