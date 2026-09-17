@@ -105,8 +105,13 @@ function renderizarTarjetas() {
 
       const botonEditar = document.createElement("button");
       botonEditar.textContent = "Editar";
-      botonEditar.addEventListener("click", () => {
-        const nuevoTexto = prompt("Editar tarjeta:", tarjeta.texto);
+      botonEditar.addEventListener("click", async () => {
+        const nuevoTexto = await mostrarPrompt({
+          titulo: "Editar tarjeta",
+          mensaje: "Nuevo texto de la tarjeta",
+          valorInicial: tarjeta.texto,
+          textoAceptar: "Guardar",
+        });
         if (nuevoTexto !== null) {
           editarTarjeta(tarjeta.id, nuevoTexto);
         }
@@ -115,8 +120,12 @@ function renderizarTarjetas() {
 
       const botonEliminar = document.createElement("button");
       botonEliminar.textContent = "Eliminar";
-      botonEliminar.addEventListener("click", () => {
-        const confirmado = confirm(`¿Eliminar la tarjeta "${tarjeta.texto}"?`);
+      botonEliminar.addEventListener("click", async () => {
+        const confirmado = await mostrarConfirmacion({
+          titulo: "Eliminar tarjeta",
+          mensaje: `¿Eliminar la tarjeta "${tarjeta.texto}"? Esta acción no se puede deshacer.`,
+          textoAceptar: "Eliminar",
+        });
         if (confirmado) {
           eliminarTarjeta(tarjeta.id);
         }
@@ -149,8 +158,12 @@ function renderizarTarjetas() {
 
     const botonNueva = document.createElement("button");
     botonNueva.textContent = "+ Nueva tarjeta";
-    botonNueva.addEventListener("click", () => {
-      const texto = prompt(`Nueva tarjeta en "${nombreColumna}":`);
+    botonNueva.addEventListener("click", async () => {
+      const texto = await mostrarPrompt({
+        titulo: `Nueva tarjeta en "${nombreColumna}"`,
+        mensaje: "Escribe el texto de la tarjeta",
+        textoAceptar: "Crear",
+      });
       if (texto !== null) {
         crearTarjeta(idTableroSeleccionado, nombreColumna, texto);
       }
