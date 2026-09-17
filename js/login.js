@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // REDIRIGIR AL SISTEMA PRINCIPAL
             window.location.href = 'index.html';
         } else {
-            alert("❌ Correo o contraseña incorrectos.");
+            alert("Correo o contraseña incorrectos.");
         }
     });
 });

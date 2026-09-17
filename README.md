@@ -17,8 +17,16 @@ backend), con persistencia en `localStorage`.
 - Anelhi Zharick Marcos Arias
 - Ghelytza Belu Arrieta Berrocal
 
+
 ## Flujo de trabajo
 
 Este repositorio usa Git Flow. Cada integrante trabaja su modulo en una rama
 `feature/*` propia y la publica para revision mediante Pull Request hacia
 `develop`.
+
+## Guia para Colaboradores
+
+1. Clonar el repositorio: `git clone <url>`
+2. Crear una rama para tu modulo: `git checkout -b feature/nombre`
+3. Hacer commits descriptivos y subir cambios: `git push origin feature/nombre`
+4. Abrir un Pull Request hacia develop.
