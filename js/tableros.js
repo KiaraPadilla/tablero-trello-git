@@ -73,8 +73,13 @@ function renderizarListaTableros() {
 
     const botonRenombrar = document.createElement("button");
     botonRenombrar.textContent = "Renombrar";
-    botonRenombrar.addEventListener("click", () => {
-      const nuevoNombre = prompt("Nuevo nombre del tablero:", tablero.nombre);
+    botonRenombrar.addEventListener("click", async () => {
+      const nuevoNombre = await mostrarPrompt({
+        titulo: "Renombrar tablero",
+        mensaje: `Nuevo nombre para "${tablero.nombre}"`,
+        valorInicial: tablero.nombre,
+        textoAceptar: "Guardar",
+      });
       if (nuevoNombre !== null) {
         renombrarTablero(tablero.id, nuevoNombre);
       }
@@ -83,8 +88,12 @@ function renderizarListaTableros() {
 
     const botonEliminar = document.createElement("button");
     botonEliminar.textContent = "Eliminar";
-    botonEliminar.addEventListener("click", () => {
-      const confirmado = confirm(`¿Eliminar el tablero "${tablero.nombre}"?`);
+    botonEliminar.addEventListener("click", async () => {
+      const confirmado = await mostrarConfirmacion({
+        titulo: "Eliminar tablero",
+        mensaje: `¿Eliminar el tablero "${tablero.nombre}"? Esta acción no se puede deshacer.`,
+        textoAceptar: "Eliminar",
+      });
       if (confirmado) {
         eliminarTablero(tablero.id);
       }
