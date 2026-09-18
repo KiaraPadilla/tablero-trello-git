@@ -19,9 +19,15 @@ function actualizarVisibilidadPorSesion() {
   if (!landing || !seccionTableros || !seccionActivo) return;
 
   const sesionActiva = haySesionActiva();
-  landing.hidden = sesionActiva;
+  landing.classList.toggle("oculto", sesionActiva);
   seccionTableros.hidden = !sesionActiva;
   seccionActivo.hidden = !sesionActiva;
+}
+
+// El hero solo es pantalla de bienvenida: se oculta al entrar a la vista de tableros.
+function ocultarVistaInicial() {
+  const landing = document.getElementById("landing-tableros");
+  if (landing) landing.classList.add("oculto");
 }
 
 function generarIdTablero() {
@@ -67,8 +73,13 @@ function renderizarListaTableros() {
 
     const botonRenombrar = document.createElement("button");
     botonRenombrar.textContent = "Renombrar";
-    botonRenombrar.addEventListener("click", () => {
-      const nuevoNombre = prompt("Nuevo nombre del tablero:", tablero.nombre);
+    botonRenombrar.addEventListener("click", async () => {
+      const nuevoNombre = await mostrarPrompt({
+        titulo: "Renombrar tablero",
+        mensaje: `Nuevo nombre para "${tablero.nombre}"`,
+        valorInicial: tablero.nombre,
+        textoAceptar: "Guardar",
+      });
       if (nuevoNombre !== null) {
         renombrarTablero(tablero.id, nuevoNombre);
       }
@@ -77,8 +88,12 @@ function renderizarListaTableros() {
 
     const botonEliminar = document.createElement("button");
     botonEliminar.textContent = "Eliminar";
-    botonEliminar.addEventListener("click", () => {
-      const confirmado = confirm(`¿Eliminar el tablero "${tablero.nombre}"?`);
+    botonEliminar.addEventListener("click", async () => {
+      const confirmado = await mostrarConfirmacion({
+        titulo: "Eliminar tablero",
+        mensaje: `¿Eliminar el tablero "${tablero.nombre}"? Esta acción no se puede deshacer.`,
+        textoAceptar: "Eliminar",
+      });
       if (confirmado) {
         eliminarTablero(tablero.id);
       }
@@ -103,6 +118,7 @@ function eliminarTablero(id) {
 
 function seleccionarTablero(id) {
   idTableroSeleccionado = id;
+  ocultarVistaInicial();
   renderizarListaTableros();
   renderizarColumnasTablero();
 }
@@ -167,6 +183,7 @@ function crearTablero(nombre) {
   tableros.push(nuevoTablero);
   guardarTableros(tableros);
   idTableroSeleccionado = nuevoTablero.id;
+  ocultarVistaInicial();
   renderizarListaTableros();
   renderizarColumnasTablero();
 }

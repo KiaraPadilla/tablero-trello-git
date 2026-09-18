@@ -2,6 +2,24 @@
 
 const CLAVE_STORAGE_TARJETAS = "tarjetas";
 
+// Categorias disponibles para clasificar las tarjetas
+const CATEGORIAS = [
+  { nombre: "Trabajo", clase: "cat-trabajo" },
+  { nombre: "Estudio", clase: "cat-estudio" },
+  { nombre: "Personal", clase: "cat-personal" },
+];
+
+let filtroCategoriaActivo = "todas";
+
+function claseCategoria(nombre) {
+  const encontrada = CATEGORIAS.find((c) => c.nombre === nombre);
+  return encontrada ? encontrada.clase : "";
+}
+
+function esCategoriaValida(nombre) {
+  return CATEGORIAS.some((c) => c.nombre === nombre);
+}
+
 function generarIdTarjeta() {
   return "tarjeta-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
 }
@@ -15,7 +33,7 @@ function guardarTarjetas(tarjetas) {
   localStorage.setItem(CLAVE_STORAGE_TARJETAS, JSON.stringify(tarjetas));
 }
 
-function crearTarjeta(idTablero, nombreColumna, texto) {
+function crearTarjeta(idTablero, nombreColumna, texto, categoria) {
   const textoLimpio = texto.trim();
   if (!textoLimpio || !idTablero || !nombreColumna) return;
 
@@ -25,6 +43,7 @@ function crearTarjeta(idTablero, nombreColumna, texto) {
     idTablero: idTablero,
     nombreColumna: nombreColumna,
     texto: textoLimpio,
+    categoria: esCategoriaValida(categoria) ? categoria : "",
   };
 
   tarjetas.push(nuevaTarjeta);
@@ -41,6 +60,18 @@ function editarTarjeta(id, nuevoTexto) {
   if (!tarjeta) return;
 
   tarjeta.texto = textoLimpio;
+  guardarTarjetas(tarjetas);
+  renderizarTarjetas();
+}
+
+function cambiarCategoriaTarjeta(id, categoria) {
+  if (categoria && !esCategoriaValida(categoria)) return;
+
+  const tarjetas = obtenerTarjetas();
+  const tarjeta = tarjetas.find((t) => t.id === id);
+  if (!tarjeta) return;
+
+  tarjeta.categoria = categoria || "";
   guardarTarjetas(tarjetas);
   renderizarTarjetas();
 }
@@ -63,7 +94,49 @@ function moverTarjeta(id, nuevaColumna) {
   renderizarTarjetas();
 }
 
+function inicializarFiltroCategorias() {
+  const seccion = document.getElementById("seccion-tablero-activo");
+  const columnas = document.getElementById("columnas-tablero");
+  if (!seccion || !columnas) return;
+  if (document.getElementById("filtro-categorias")) return;
+
+  const barra = document.createElement("div");
+  barra.id = "filtro-categorias";
+  barra.classList.add("filtro-categorias");
+
+  const label = document.createElement("label");
+  label.setAttribute("for", "select-filtro-categoria");
+  label.textContent = "Filtrar por categoría:";
+  barra.appendChild(label);
+
+  const select = document.createElement("select");
+  select.id = "select-filtro-categoria";
+
+  const opcionTodas = document.createElement("option");
+  opcionTodas.value = "todas";
+  opcionTodas.textContent = "Todas";
+  select.appendChild(opcionTodas);
+
+  CATEGORIAS.forEach((categoria) => {
+    const opcion = document.createElement("option");
+    opcion.value = categoria.nombre;
+    opcion.textContent = categoria.nombre;
+    select.appendChild(opcion);
+  });
+
+  select.value = filtroCategoriaActivo;
+  select.addEventListener("change", () => {
+    filtroCategoriaActivo = select.value;
+    renderizarTarjetas();
+  });
+  barra.appendChild(select);
+
+  seccion.insertBefore(barra, columnas);
+}
+
 function renderizarTarjetas() {
+  inicializarFiltroCategorias();
+
   const contenedor = document.getElementById("columnas-tablero");
   if (!contenedor) return;
 
@@ -78,9 +151,15 @@ function renderizarTarjetas() {
 
   if (!idTableroSeleccionado) return;
 
-  const tarjetas = obtenerTarjetas().filter(
+  let tarjetas = obtenerTarjetas().filter(
     (t) => t.idTablero === idTableroSeleccionado
   );
+
+  if (filtroCategoriaActivo !== "todas") {
+    tarjetas = tarjetas.filter(
+      (t) => (t.categoria || "") === filtroCategoriaActivo
+    );
+  }
 
   columnas.forEach((columna) => {
     const nombreColumna = columna.querySelector("h3").textContent;
@@ -95,6 +174,29 @@ function renderizarTarjetas() {
       const tarjetaDiv = document.createElement("div");
       tarjetaDiv.classList.add("tarjeta");
 
+      const categoriaActual = tarjeta.categoria || "";
+      const selectCategoria = document.createElement("select");
+      selectCategoria.classList.add("tarjeta-select-categoria");
+      if (categoriaActual) selectCategoria.classList.add(claseCategoria(categoriaActual));
+
+      const opcionSinCategoria = document.createElement("option");
+      opcionSinCategoria.value = "";
+      opcionSinCategoria.textContent = "Sin categoría";
+      selectCategoria.appendChild(opcionSinCategoria);
+
+      CATEGORIAS.forEach((categoria) => {
+        const opcion = document.createElement("option");
+        opcion.value = categoria.nombre;
+        opcion.textContent = categoria.nombre;
+        selectCategoria.appendChild(opcion);
+      });
+
+      selectCategoria.value = categoriaActual;
+      selectCategoria.addEventListener("change", () => {
+        cambiarCategoriaTarjeta(tarjeta.id, selectCategoria.value);
+      });
+      tarjetaDiv.appendChild(selectCategoria);
+
       const textoP = document.createElement("p");
       textoP.classList.add("tarjeta-texto");
       textoP.textContent = tarjeta.texto;
@@ -105,8 +207,13 @@ function renderizarTarjetas() {
 
       const botonEditar = document.createElement("button");
       botonEditar.textContent = "Editar";
-      botonEditar.addEventListener("click", () => {
-        const nuevoTexto = prompt("Editar tarjeta:", tarjeta.texto);
+      botonEditar.addEventListener("click", async () => {
+        const nuevoTexto = await mostrarPrompt({
+          titulo: "Editar tarjeta",
+          mensaje: "Nuevo texto de la tarjeta",
+          valorInicial: tarjeta.texto,
+          textoAceptar: "Guardar",
+        });
         if (nuevoTexto !== null) {
           editarTarjeta(tarjeta.id, nuevoTexto);
         }
@@ -115,8 +222,12 @@ function renderizarTarjetas() {
 
       const botonEliminar = document.createElement("button");
       botonEliminar.textContent = "Eliminar";
-      botonEliminar.addEventListener("click", () => {
-        const confirmado = confirm(`¿Eliminar la tarjeta "${tarjeta.texto}"?`);
+      botonEliminar.addEventListener("click", async () => {
+        const confirmado = await mostrarConfirmacion({
+          titulo: "Eliminar tarjeta",
+          mensaje: `¿Eliminar la tarjeta "${tarjeta.texto}"? Esta acción no se puede deshacer.`,
+          textoAceptar: "Eliminar",
+        });
         if (confirmado) {
           eliminarTarjeta(tarjeta.id);
         }
@@ -147,15 +258,38 @@ function renderizarTarjetas() {
       contenedorTarjetas.appendChild(tarjetaDiv);
     });
 
+    const selectNuevaCategoria = document.createElement("select");
+    selectNuevaCategoria.classList.add("selector-nueva-categoria");
+    CATEGORIAS.forEach((categoria) => {
+      const opcion = document.createElement("option");
+      opcion.value = categoria.nombre;
+      opcion.textContent = categoria.nombre;
+      selectNuevaCategoria.appendChild(opcion);
+    });
+
     const botonNueva = document.createElement("button");
     botonNueva.textContent = "+ Nueva tarjeta";
-    botonNueva.addEventListener("click", () => {
-      const texto = prompt(`Nueva tarjeta en "${nombreColumna}":`);
+    botonNueva.addEventListener("click", async () => {
+      const texto = await mostrarPrompt({
+        titulo: `Nueva tarjeta en "${nombreColumna}"`,
+        mensaje: "Escribe el texto de la tarjeta",
+        textoAceptar: "Crear",
+      });
       if (texto !== null) {
-        crearTarjeta(idTableroSeleccionado, nombreColumna, texto);
+        crearTarjeta(
+          idTableroSeleccionado,
+          nombreColumna,
+          texto,
+          selectNuevaCategoria.value
+        );
       }
     });
-    contenedorTarjetas.appendChild(botonNueva);
+
+    const nuevaTarjetaControles = document.createElement("div");
+    nuevaTarjetaControles.classList.add("nueva-tarjeta");
+    nuevaTarjetaControles.appendChild(selectNuevaCategoria);
+    nuevaTarjetaControles.appendChild(botonNueva);
+    contenedorTarjetas.appendChild(nuevaTarjetaControles);
 
     columna.appendChild(contenedorTarjetas);
   });
